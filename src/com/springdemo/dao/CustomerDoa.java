@@ -10,5 +10,7 @@ public interface CustomerDoa {
 	public List<Customer> getCustomers();
 	
 	public void saveCustomer(Customer tHeCustomer);
+	
+	public Customer getCustomer(int theId);
 
 }

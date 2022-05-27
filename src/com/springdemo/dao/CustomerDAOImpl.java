@@ -26,7 +26,7 @@ public class CustomerDAOImpl implements CustomerDoa {
 				
 		// create a query
 		Query<Customer> theQuery = 
-				currentSession.createQuery("from Customer", Customer.class);
+				currentSession.createQuery("from Customer order by lastName", Customer.class);
 		
 		// execute query and get result list
 		List<Customer> customers = theQuery.getResultList();
@@ -37,12 +37,25 @@ public class CustomerDAOImpl implements CustomerDoa {
 
 	@Override
 	public void saveCustomer(Customer tHeCustomer) {
+		
 		// get the current hibernate session
 		Session currentSession = sessionfactory.getCurrentSession();
 		
 		//save the Customer
-		currentSession.save(tHeCustomer);
+		currentSession.saveOrUpdate(tHeCustomer);
 		
+	}
+
+	@Override
+	public Customer getCustomer(int theId) {
+		
+		// get the current hibernate session
+		Session currentSession = sessionfactory.getCurrentSession();
+		
+		//now retrieve \read from database using primary key
+		Customer theCustomer=currentSession.get(Customer.class, theId);
+		
+		return theCustomer;
 	}
 }
 
